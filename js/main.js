@@ -7,6 +7,8 @@
 var addButton = document.getElementById('addButton');
 var addInput = document.getElementById('itemInput');
 var todoList = document.getElementById('todoList');
+var refresh = document.getElementById('refresh');
+
 var listArray = ['grade in disguise',
                  'chore',
                  'silver lining in the cloud',
@@ -150,6 +152,28 @@ var createItemDom = function(text,status){
     return listItem;
 }
 
+var refresh = function() {
+    var newItem = new listItemObj();
+    newItem.content = addInput.value;
+    listArray.push(newItem);
+    //add to the local storage
+    refreshLocal();
+    //change the dom
+    var item = createItemDom(addInput.value,'incomplete');
+    todoList.appendChild(item);
+    addInput.value = '';
+  
+  
+    for(var i=0; i < listArray.length; i++){
+
+        if(listArray[i].content == data){
+            listArray[i].status = status;
+            refreshLocal();
+            break;
+        }
+    }
+}
+
 var refreshLocal = function(){
     var todos = listArray;
     localStorage.removeItem('todoList');
@@ -177,6 +201,7 @@ var clearList = function(){
 }
 
 window.onload = function(){
+    localStorage.clear();
     var list = localStorage.getItem('todoList');
 
     if (list != null) {
@@ -196,3 +221,4 @@ window.onload = function(){
 //add an event binder to the button
 addButton.addEventListener('click',addToList);
 clearButton.addEventListener('click',clearList);
+refresh.addEventListener('click',refresh);
