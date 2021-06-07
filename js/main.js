@@ -199,24 +199,22 @@ var clearList = function(){
 }
 
 window.onload = function(){
-//     localStorage.removeItem("todoList");
-//     var list = localStorage.getItem('todoList');
+     refreshLocal();
+     var list = localStorage.getItem('todoList');
 
-//     if (list != null) {
-//         todos = JSON.parse(list);
-//         listArray = todos;
+     if (list != null) {
+         todos = JSON.parse(list);
+         listArray = todos;
 
-//         for(var i=0; i<listArray.length;i++){
-//             var data = listArray[i].content;
+         for(var i=0; i<listArray.length;i++){
+             var data = listArray[i].content;
 
-//             var item = createItemDom(data,listArray[i].status);
-//             todoList.appendChild(item);
-//         }
-//     } else {
-//         refresh();
-//     }
-  refresh();
+             var item = createItemDom(data,listArray[i].status);
+             todoList.appendChild(item);
+         }
+     }
 };
+
 //add an event binder to the button
 addButton.addEventListener('click',addToList);
 clearButton.addEventListener('click',clearList);
