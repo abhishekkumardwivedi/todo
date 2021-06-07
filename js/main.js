@@ -199,25 +199,25 @@ var clearList = function(){
 }
 
 window.onload = function(){
-    localStorage.removeItem("todoList");
-    var list = localStorage.getItem('todoList');
+//     localStorage.removeItem("todoList");
+//     var list = localStorage.getItem('todoList');
 
-    if (list != null) {
-        todos = JSON.parse(list);
-        listArray = todos;
+//     if (list != null) {
+//         todos = JSON.parse(list);
+//         listArray = todos;
 
-        for(var i=0; i<listArray.length;i++){
-            var data = listArray[i].content;
+//         for(var i=0; i<listArray.length;i++){
+//             var data = listArray[i].content;
 
-            var item = createItemDom(data,listArray[i].status);
-            todoList.appendChild(item);
-        }
-    } else {
-        refresh();
-    }
-
+//             var item = createItemDom(data,listArray[i].status);
+//             todoList.appendChild(item);
+//         }
+//     } else {
+//         refresh();
+//     }
+  refresh();
 };
 //add an event binder to the button
 addButton.addEventListener('click',addToList);
 clearButton.addEventListener('click',clearList);
-refresh.addEventListener('click',refresh);
+refreshButton.addEventListener('click',refresh);
