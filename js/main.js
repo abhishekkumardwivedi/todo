@@ -9,6 +9,7 @@ var addInput = document.getElementById('itemInput');
 var todoList = document.getElementById('todoList');
 var refresh = document.getElementById('refresh');
 
+// https://www.bkacontent.com/40-popular-idioms-and-their-meanings/
 var listArray = ['grade in disguise',
                  'chore',
                  'silver lining in the cloud',
