@@ -152,32 +152,30 @@ var createItemDom = function(text,status){
     return listItem;
 }
 
-var refresh = function() {
-    var newItem = new listItemObj();
-    newItem.content = addInput.value;
-    listArray.push(newItem);
-    //add to the local storage
-    refreshLocal();
-    //change the dom
-    var item = createItemDom(addInput.value,'incomplete');
-    todoList.appendChild(item);
-    addInput.value = '';
-  
-  
-    for(var i=0; i < listArray.length; i++){
-
-        if(listArray[i].content == data){
-            listArray[i].status = status;
-            refreshLocal();
-            break;
-        }
-    }
-}
-
 var refreshLocal = function(){
     var todos = listArray;
     localStorage.removeItem('todoList');
     localStorage.setItem('todoList', JSON.stringify(todos));
+    console.log(JSON.stringify(todos));
+}
+
+var refresh = function() {
+//     var newItem = new listItemObj();
+//     newItem.content = addInput.value;
+//     listArray.push(newItem);
+//     //add to the local storage
+//     refreshLocal();
+//     //change the dom
+//     var item = createItemDom(addInput.value,'incomplete');
+//     todoList.appendChild(item);
+//     addInput.value = '';
+      refreshLocal();
+
+//     for(var i=0; i < listArray.length; i++){
+//             refreshLocal();
+//             break;
+//         }
+//     }
 }
 
 var addToList = function(){
@@ -201,7 +199,7 @@ var clearList = function(){
 }
 
 window.onload = function(){
-    localStorage.clear();
+    localStorage.removeItem("todoList");
     var list = localStorage.getItem('todoList');
 
     if (list != null) {
@@ -214,7 +212,8 @@ window.onload = function(){
             var item = createItemDom(data,listArray[i].status);
             todoList.appendChild(item);
         }
-
+    } else {
+        refresh();
     }
 
 };
