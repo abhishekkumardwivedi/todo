@@ -156,7 +156,6 @@ var refreshLocal = function(){
     var todos = listArray;
     localStorage.removeItem('todoList');
     localStorage.setItem('todoList', JSON.stringify(todos));
-    console.log(JSON.stringify(todos));
 }
 
 var refresh = function() {
@@ -201,6 +200,7 @@ var clearList = function(){
 window.onload = function(){
      refreshLocal();
      var list = localStorage.getItem('todoList');
+     console.log(list);
 
      if (list != null) {
          todos = JSON.parse(list);
