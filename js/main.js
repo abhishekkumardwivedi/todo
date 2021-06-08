@@ -10,7 +10,9 @@ var todoList = document.getElementById('todoList');
 var refresh = document.getElementById('refresh');
 
 // https://www.bkacontent.com/40-popular-idioms-and-their-meanings/
-var listArray = ['grade in disguise',
+var listArray = ['inevitable',
+                 'it goes without saying',
+                 'grade in disguise',
                  'chore',
                  'silver lining in the cloud',
                  'can\'t stant some one',
@@ -160,22 +162,22 @@ var refreshLocal = function(){
 }
 
 var refresh = function() {
-//     var newItem = new listItemObj();
-//     newItem.content = addInput.value;
-//     listArray.push(newItem);
-//     //add to the local storage
-//     refreshLocal();
-//     //change the dom
-//     var item = createItemDom(addInput.value,'incomplete');
-//     todoList.appendChild(item);
-//     addInput.value = '';
-      refreshLocal();
+     var newItem = new listItemObj();
+     newItem.content = addInput.value;
+     listArray.push(newItem);
+     //add to the local storage
+     refreshLocal();
+     //change the dom
+     var item = createItemDom(addInput.value,'incomplete');
+     todoList.appendChild(item);
+     addInput.value = '';
+     refreshLocal();
 
-//     for(var i=0; i < listArray.length; i++){
-//             refreshLocal();
-//             break;
-//         }
-//     }
+     for(var i=0; i < listArray.length; i++){
+             refreshLocal();
+             break;
+         }
+     }
 }
 
 var addToList = function(){
@@ -190,6 +192,11 @@ var addToList = function(){
     addInput.value = '';
 }
 
+var keepAddingToList = function(value){
+    var item = createItemDom(value,'incomplete');
+    todoList.appendChild(item);
+}
+
 //function to clear todo list array
 var clearList = function(){
     listArray = [];
@@ -199,20 +206,19 @@ var clearList = function(){
 }
 
 window.onload = function(){
+     localStorage.removeItem('todoList');
+     for(var i=0; i < listArray.length; i++){
+        var item = createItemDom(listArray[i],'incomplete');
+        todoList.appendChild(item);;
+     }     
      refreshLocal();
-     var list = localStorage.getItem('todoList');
-     console.log(list);
 
-     if (list != null) {
-         todos = JSON.parse(list);
-         listArray = todos;
-
-         for(var i=0; i<listArray.length;i++){
-             var data = listArray[i].content;
-
-             var item = createItemDom(data,listArray[i].status);
-             todoList.appendChild(item);
-         }
+     for(var i=0; i<listArray.length; i++){
+         var data = listArray[i].content;
+         console.log("listArray[" + i + "].content = " + listArray[i].content);
+         console.log("listArray[" + i + "].status = " + listArray[i].status);
+         var item = createItemDom(data,listArray[i].status);
+         todoList.appendChild(item);
      }
 };
 
