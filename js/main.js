@@ -4,10 +4,7 @@
 //delete list items
 
 
-var addButton = document.getElementById('addButton');
-var addInput = document.getElementById('itemInput');
 var todoList = document.getElementById('todoList');
-var refresh = document.getElementById('refresh');
 
 // https://www.bkacontent.com/40-popular-idioms-and-their-meanings/
 var listArray = ['inevitable',
@@ -62,12 +59,7 @@ var listArray = ['inevitable',
                 'Throwing caution to the wind: Being reckless or taking a risk',
                 'Your guess is as good as mine: To not know something'
                 ];
-//declare addToList function
 
-function listItemObj(content, status) {
-    this.content = '';
-    this.status = 'incomplete';
-}
 var changeToComp = function(){
     var parent = this.parentElement;
     console.log('Changed to complete');
@@ -112,7 +104,6 @@ var removeItem = function(){
 var changeListArray = function(data,status){
 
     for(var i=0; i < listArray.length; i++){
-
         if(listArray[i].content == data){
             listArray[i].status = status;
             refreshLocal();
@@ -130,8 +121,6 @@ var createItemDom = function(text,status){
 
     var itemCompBtn = document.createElement('button');
 
-    var itemIncompBtn = document.createElement('button');
-
     listItem.className = (status == 'incomplete')?'completed well':'uncompleted well';
 
     itemLabel.innerText = text;
@@ -143,86 +132,18 @@ var createItemDom = function(text,status){
         itemCompBtn.addEventListener('click',changeToInComp);
     }
 
-
-    itemIncompBtn.className = 'btn btn-danger';
-    itemIncompBtn.innerText = 'Delete';
-    itemIncompBtn.addEventListener('click',removeItem);
-
     listItem.appendChild(itemLabel);
     listItem.appendChild(itemCompBtn);
-    listItem.appendChild(itemIncompBtn);
+    // listItem.appendChild(itemIncompBtn);
 
     return listItem;
 }
 
-var refreshLocal = function(){
-    var todos = listArray;
-    localStorage.removeItem('todoList');
-    localStorage.setItem('todoList', JSON.stringify(todos));
-}
-
-var refresh = function() {
-     var newItem = new listItemObj();
-     newItem.content = addInput.value;
-     listArray.push(newItem);
-     //add to the local storage
-     refreshLocal();
-     //change the dom
-     var item = createItemDom(addInput.value,'incomplete');
-     todoList.appendChild(item);
-     addInput.value = '';
-     refreshLocal();
-
-     for(var i=0; i < listArray.length; i++){
-             refreshLocal();
-             break;
-         }
-     }
-}
-
-var addToList = function(){
-    var newItem = new listItemObj();
-    newItem.content = addInput.value;
-    listArray.push(newItem);
-    //add to the local storage
-    refreshLocal();
-    //change the dom
-    var item = createItemDom(addInput.value,'incomplete');
-    todoList.appendChild(item);
-    addInput.value = '';
-}
-
-var keepAddingToList = function(value){
-    var item = createItemDom(value,'incomplete');
-    todoList.appendChild(item);
-}
-
-//function to clear todo list array
-var clearList = function(){
-    listArray = [];
-    localStorage.removeItem('todoList');
-    todoList.innerHTML = '';
-
-}
-
 window.onload = function(){
-     localStorage.removeItem('todoList');
+    //  localStorage.removeItem('todoList');
      for(var i=0; i < listArray.length; i++){
         var item = createItemDom(listArray[i],'incomplete');
         todoList.appendChild(item);;
      }     
-     refreshLocal();
-
-     for(var i=0; i<listArray.length; i++){
-         var data = listArray[i].content;
-         console.log("listArray[" + i + "].content = " + listArray[i].content);
-         console.log("listArray[" + i + "].status = " + listArray[i].status);
-         var item = createItemDom(data,listArray[i].status);
-         todoList.appendChild(item);
-     }
+    //  refreshLocal();
 };
-
-//add an event binder to the button
-addButton.addEventListener('click',addToList);
-clearButton.addEventListener('click',clearList);
-refreshButton.addEventListener('click',refresh);
